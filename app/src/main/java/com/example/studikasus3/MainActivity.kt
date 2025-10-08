@@ -1,80 +1,99 @@
 package com.example.studikasus3
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.studikasus3.ui.theme.StudiKasus3Theme
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            StudiKasus3Theme {
-                val navController = rememberNavController()
+@Composable
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    onLoginClick: (email: String, password: String) -> Unit,
+    onDaftarClick: () -> Unit
+) {
+    var nama by remember { mutableStateOf("") }
+    var nim by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
-                NavHost(
-                    navController = navController,
-                    startDestination = "login"
-                ) {
-                    // LOGIN SCREEN
-                    composable("login") {
-                        LoginScreen(
-                            onLoginClick = { email, password ->
-                                navController.navigate("detail/$email/$password")
-                            },
-                            onDaftarClick = {
-                                navController.navigate("hal1")
-                            }
-                        )
-                    }
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Login", fontSize = 26.sp)
+        Spacer(modifier = Modifier.height(24.dp))
 
-                    // DETAIL SCREEN
-                    composable("detail/{email}/{password}") { backStackEntry ->
-                        val email = backStackEntry.arguments?.getString("email") ?: ""
-                        val password = backStackEntry.arguments?.getString("password") ?: ""
-                        DetailScreen(
-                            nim = "235150407111000",
-                            nama = "Lathiifahtus Sunniyyah",
-                            email = email,
-                            onDaftarClick = {
-                                navController.navigate("hal1")
-                            }
-                        )
-                    }
+        OutlinedTextField(
+            value = nama,
+            onValueChange = { nama = it },
+            label = { Text("Nama") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp)
+        )
 
-                    // HALAMAN DAFTAR
-                    composable("hal1") {
-                        Hal1Screen { nim, nama, email, tgl, alamat ->
-                            navController.navigate("hal2/$nim/$nama/$email/$tgl/$alamat")
-                        }
-                    }
+        OutlinedTextField(
+            value = nim,
+            onValueChange = { nim = it },
+            label = { Text("NIM") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp)
+        )
 
-                    // HALAMAN HASIL REGISTRASI
-                    composable("hal2/{nim}/{nama}/{email}/{tgl}/{alamat}") { backStackEntry ->
-                        val nim = backStackEntry.arguments?.getString("nim") ?: ""
-                        val nama = backStackEntry.arguments?.getString("nama") ?: ""
-                        val email = backStackEntry.arguments?.getString("email") ?: ""
-                        val tgl = backStackEntry.arguments?.getString("tgl") ?: ""
-                        val alamat = backStackEntry.arguments?.getString("alamat") ?: ""
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp)
+        )
 
-                        Hal2Screen(nim, nama, email, tgl, alamat)
-                    }
-                }
-            }
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Password") },
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Button(
+            onClick = { onLoginClick(email.trim(), password) },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+        ) {
+            Text("LOGIN")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedButton(
+            onClick = onDaftarClick,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("DAFTAR")
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewMain() {
-    StudiKasus3Theme {
-    }
+fun PreviewLoginScreen() {
+    LoginScreen(onLoginClick = { _, _ -> }, onDaftarClick = {})
 }

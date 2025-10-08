@@ -40,7 +40,7 @@ fun Hal1Screen(
         OutlinedTextField(
             value = nim,
             onValueChange = { nim = it },
-            label = { Text("NIM") },
+            label = { Text("235150407111046") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -50,7 +50,7 @@ fun Hal1Screen(
         OutlinedTextField(
             value = nama,
             onValueChange = { nama = it },
-            label = { Text("Nama") },
+            label = { Text("Lathiifahtus Sunniyyah") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -60,7 +60,7 @@ fun Hal1Screen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text("lathiifahtuss@student.ub.ac.id") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -70,7 +70,7 @@ fun Hal1Screen(
         OutlinedTextField(
             value = tglLahir,
             onValueChange = { tglLahir = it },
-            label = { Text("Tanggal Lahir") },
+            label = { Text("26 Oktober 2003") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -80,7 +80,7 @@ fun Hal1Screen(
         OutlinedTextField(
             value = alamat,
             onValueChange = { alamat = it },
-            label = { Text("Alamat") },
+            label = { Text("Jl. Raya Sumbersari 292C") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -91,7 +91,6 @@ fun Hal1Screen(
 
         Button(
             onClick = {
-                // trim supaya data lebih rapi saat dikirim ke MainActivity
                 onDaftarClick(
                     nim.trim(),
                     nama.trim(),
@@ -126,11 +125,11 @@ fun Hal2Screen(
         Text(text = "Data Registrasi", fontSize = 26.sp)
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "NIM : $nim", fontSize = 18.sp)
-        Text(text = "Nama : $nama", fontSize = 18.sp)
-        Text(text = "Email : $email", fontSize = 18.sp)
-        Text(text = "Tanggal Lahir : $tglLahir", fontSize = 18.sp)
-        Text(text = "Alamat : $alamat", fontSize = 18.sp)
+        Text(text = "235150407111046 : $nim", fontSize = 18.sp)
+        Text(text = "Lathiifahtus Sunniyyah : $nama", fontSize = 18.sp)
+        Text(text = "lathiifahtuss@student.ub.ac.id : $email", fontSize = 18.sp)
+        Text(text = "26 Oktober 2003 : $tglLahir", fontSize = 18.sp)
+        Text(text = "Jl. Raya Sumbersari 292C : $alamat", fontSize = 18.sp)
     }
 }
 
@@ -143,5 +142,5 @@ fun PreviewHal1() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewHal2() {
-    Hal2Screen("235150407111000", "Sonia", "sonia@gmail.com", "01-01-2003", "Sumatra Barat")
+    Hal2Screen("235150407111000", "Lathiifahtus Sunniyyah", "lathiifahtuss@student.ub.ac.id", "26 Oktober", "Jl. Raya Sumbersari 292C")
 }

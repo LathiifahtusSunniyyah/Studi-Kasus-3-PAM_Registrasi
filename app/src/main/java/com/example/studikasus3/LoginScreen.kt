@@ -11,11 +11,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoginScreen(
+fun LoginScreenUtama(
     modifier: Modifier = Modifier,
-    onLoginClick: (email: String, password: String) -> Unit,
-    onDaftarClick: () -> Unit
+    onLoginClick: (email: String, password: String) -> Unit = { _, _ -> },
+    onDaftarClick: () -> Unit = {}
 ) {
+    var nama by remember { mutableStateOf("") }
+    var nim by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -25,8 +27,28 @@ fun LoginScreen(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Halaman Login", fontSize = 26.sp)
+        Text(text = "Login", fontSize = 26.sp)
         Spacer(modifier = Modifier.height(24.dp))
+
+        OutlinedTextField(
+            value = nama,
+            onValueChange = { nama = it },
+            label = { Text("Nama") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp)
+        )
+
+        OutlinedTextField(
+            value = nim,
+            onValueChange = { nim = it },
+            label = { Text("NIM") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp)
+        )
 
         OutlinedTextField(
             value = email,
@@ -72,6 +94,6 @@ fun LoginScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewLoginScreen() {
-    LoginScreen(onLoginClick = { _, _ -> }, onDaftarClick = {})
+fun PreviewLoginScreenUtama() {
+    LoginScreenUtama()
 }
